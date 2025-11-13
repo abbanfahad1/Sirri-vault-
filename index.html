@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SirriVault - Africa's Zero-Knowledge Cybersecurity Vault</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">🔒</div>
+                <div class="logo-text">SirriVault</div>
+            </div>
+            <div class="security-badge">
+                <span>🛡️ SECURE</span>
+            </div>
+        </header>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('vault')">
+                <span>🔐</span> Vault
+            </button>
+            <button class="nav-tab" onclick="switchTab('authenticator')">
+                <span>🔑</span> Authenticator
+            </button>
+            <button class="nav-tab" onclick="switchTab('cybercrime')">
+                <span>🚨</span> Cybercrime
+            </button>
+            <button class="nav-tab" onclick="switchTab('threats')">
+                <span>📡</span> Threat Detection
+            </button>
+            <button class="nav-tab" onclick="switchTab('legacy')">
+                <span>⚡</span> Legacy Mode
+            </button>
+        </nav>
+
+        <!-- MAIN CONTENT AREA -->
+        <main>
+            <!-- VAULT TAB -->
+            <div id="vault" class="tab-content active">
+                <div class="quick-actions">
+                    <div class="action-btn" onclick="addFile('photo')">
+                        <div class="action-icon">📷</div>
+                        <div>Add Photos</div>
+                    </div>
+                    <div class="action-btn" onclick="addFile('document')">
+                        <div class="action-icon">📄</div>
+                        <div>Add Documents</div>
+                    </div>
+                    <div class="action-btn" onclick="addFile('video')">
+                        <div class="action-icon">🎥</div>
+                        <div>Add Videos</div>
+                    </div>
+                    <div class="action-btn" onclick="addFile('audio')">
+                        <div class="action-icon">🎤</div>
+                        <div>Record Audio</div>
+                    </div>
+                </div>
+
+                <h3>Your Encrypted Files</h3>
+                <div class="files-grid" id="filesGrid">
+                    <div class="file-card">
+                        <div class="file-icon">📷</div>
+                        <h4>passport.jpg</h4>
+                        <p>2.4 MB • Encrypted</p>
+                        <div class="file-actions">
+                            <button class="btn-small" onclick="viewFile(this)">👁️ View</button>
+                            <button class="btn-small" onclick="deleteFile(this)">🗑️ Delete</button>
+                        </div>
+                    </div>
+                    <div class="file-card">
+                        <div class="file-icon">📄</div>
+                        <h4>contract.pdf</h4>
+                        <p>1.8 MB • Encrypted</p>
+                        <div class="file-actions">
+                            <button class="btn-small" onclick="viewFile(this)">👁️ View</button>
+                            <button class="btn-small" onclick="deleteFile(this)">🗑️ Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AUTHENTICATOR TAB -->
+            <div id="authenticator" class="tab-content">
+                <div class="otp-container">
+                    <h3>🔑 Current OTP Code</h3>
+                    <div class="otp-code" id="currentOtp">--- ---</div>
+                    <div class="otp-timer">
+                        <div class="timer-circle">
+                            <span id="timer">30</span>s
+                        </div>
+                    </div>
+                    <p>This code refreshes every 30 seconds</p>
+                </div>
+
+                <div class="section-header">
+                    <h3>Your Accounts</h3>
+                    <button class="btn-primary" onclick="showAddAccountModal()">
+                        <span>+</span> Add Account
+                    </button>
+                </div>
+
+                <div class="accounts-list" id="accountsList">
+                    <div class="account-card">
+                        <div class="account-avatar" style="background: #EA4335;">G</div>
+                        <div class="account-info">
+                            <h4>Google Account</h4>
+                            <p>user@gmail.com • Last used: 2 hours ago</p>
+                        </div>
+                        <div class="account-otp">
+                            <div class="otp-display" id="googleOtp">123456</div>
+                            <div class="otp-copy" onclick="copyOtp('googleOtp')">📋</div>
+                        </div>
+                    </div>
+                    
+                    <div class="account-card">
+                        <div class="account-avatar" style="background: #6A0DAD;">A</div>
+                        <div class="account-info">
+                            <h4>AsratChain Wallet</h4>
+                            <p>wallet.asrat • Last used: 1 day ago</p>
+                        </div>
+                        <div class="account-otp">
+                            <div class="otp-display" id="asratOtp">654321</div>
+                            <div class="otp-copy" onclick="copyOtp('asratOtp')">📋</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CYBERCRIME TAB -->
+            <div id="cybercrime" class="tab-content">
+                <div class="section-header">
+                    <h2>🚨 Cybercrime Reporting</h2>
+                    <p>Report security incidents directly to law enforcement agencies</p>
+                </div>
+
+                <div class="report-options">
+                    <div class="report-card" onclick="openReportForm('hacking')">
+                        <div class="report-icon">💻</div>
+                        <h3>Hacking Incident</h3>
+                        <p>Report unauthorized access to your accounts or systems</p>
+                        <div class="report-stats">24h: 1,234 reports</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="openReportForm('identity')">
+                        <div class="report-icon">👤</div>
+                        <h3>Identity Theft</h3>
+                        <p>Report stolen personal information or impersonation</p>
+                        <div class="report-stats">24h: 856 reports</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="openReportForm('scam')">
+                        <div class="report-icon">⚠️</div>
+                        <h3>Online Scam</h3>
+                        <p>Report fraudulent schemes, phishing, and financial scams</p>
+                        <div class="report-stats">24h: 3,421 reports</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="openReportForm('breach')">
+                        <div class="report-icon">🔓</div>
+                        <h3>Data Breach</h3>
+                        <p>Report exposure of sensitive personal or financial data</p>
+                        <div class="report-stats">24h: 567 reports</div>
+                    </div>
+                </div>
+
+                <div class="recent-reports">
+                    <h3>Your Recent Reports</h3>
+                    <div class="reports-list">
+                        <div class="report-item">
+                            <div class="report-status pending">🟡 Pending</div>
+                            <div class="report-details">
+                                <h4>Phishing Attempt - Gmail</h4>
+                                <p>Submitted: 2 hours ago • Case #SC-7842</p>
+                            </div>
+                            <button class="btn-small" onclick="viewReportDetails(this)">View</button>
+                        </div>
+                        <div class="report-item">
+                            <div class="report-status resolved">🟢 Resolved</div>
+                            <div class="report-details">
+                                <h4>Unauthorized Bank Access</h4>
+                                <p>Submitted: 3 days ago • Case #SC-7791</p>
+                            </div>
+                            <button class="btn-small" onclick="viewReportDetails(this)">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THREAT DETECTION TAB -->
+            <div id="threats" class="tab-content">
+                <div class="security-status" id="securityStatus">
+                    <div class="status-icon">🛡️</div>
+                    <h2 id="statusTitle">System Secure</h2>
+                    <p id="statusDescription">All systems operating normally</p>
+                    <div class="last-scan">Last scan: <span id="lastScanTime">Just now</span></div>
+                </div>
+
+                <div class="threat-actions">
+                    <button class="threat-btn primary" onclick="runQuickScan()">
+                        <div class="btn-icon">🔍</div>
+                        <span>Quick Scan</span>
+                    </button>
+                    <button class="threat-btn secondary" onclick="runFullScan()">
+                        <div class="btn-icon">📊</div>
+                        <span>Full System Scan</span>
+                    </button>
+                    <button class="threat-btn warning" onclick="viewThreatHistory()">
+                        <div class="btn-icon">📈</div>
+                        <span>Threat History</span>
+                    </button>
+                </div>
+
+                <div class="monitoring-section">
+                    <h3>📊 Real-time Monitoring</h3>
+                    <div class="monitoring-grid">
+                        <div class="monitor-card">
+                            <div class="monitor-icon">🌐</div>
+                            <div class="monitor-info">
+                                <h4>Network Traffic</h4>
+                                <div class="monitor-status safe">Normal</div>
+                            </div>
+                            <div class="monitor-value" id="networkTraffic">245 KB/s</div>
+                        </div>
+                        <div class="monitor-card">
+                            <div class="monitor-icon">💾</div>
+                            <div class="monitor-info">
+                                <h4>File System</h4>
+                                <div class="monitor-status safe">Secure</div>
+                            </div>
+                            <div class="monitor-value" id="fileSystem">1,234 files</div>
+                        </div>
+                        <div class="monitor-card">
+                            <div class="monitor-icon">🔐</div>
+                            <div class="monitor-info">
+                                <h4>Encryption</h4>
+                                <div class="monitor-status safe">Active</div>
+                            </div>
+                            <div class="monitor-value" id="encryptionStatus">AES-256</div>
+                        </div>
+                        <div class="monitor-card">
+                            <div class="monitor-icon">🤖</div>
+                            <div class="monitor-info">
+                                <h4>AI Guardian</h4>
+                                <div class="monitor-status safe">Online</div>
+                            </div>
+                            <div class="monitor-value" id="aiStatus">Active</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="threat-analysis" id="threatAnalysis" style="display: none;">
+                    <h3>🎯 Threat Analysis Results</h3>
+                    <div class="analysis-card">
+                        <div class="risk-level low">
+                            <div class="risk-icon">✅</div>
+                            <div class="risk-info">
+                                <h4>Risk Level: LOW</h4>
+                                <p>No immediate threats detected</p>
+                            </div>
+                        </div>
+                        <div class="threat-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Scanned Files:</span>
+                                <span class="detail-value" id="scannedFiles">0</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Threats Found:</span>
+                                <span class="detail-value safe" id="threatsFound">0</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Scan Duration:</span>
+                                <span class="detail-value" id="scanDuration">0s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alerts-section">
+                    <h3>⚠️ Recent Security Alerts</h3>
+                    <div class="alerts-list">
+                        <div class="alert-item info">
+                            <div class="alert-icon">ℹ️</div>
+                            <div class="alert-content">
+                                <h4>System Update Available</h4>
+                                <p>New security patches ready for installation</p>
+                                <span class="alert-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="alert-item warning">
+                            <div class="alert-icon">⚠️</div>
+                            <div class="alert-content">
+                                <h4>Unusual Login Attempt</h4>
+                                <p>Failed login from unknown IP address</p>
+                                <span class="alert-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEGACY MODE TAB -->
+            <div id="legacy" class="tab-content">
+                <div class="emergency-card">
+                    <div class="emergency-header">
+                        <div class="emergency-icon">🆘</div>
+                        <div class="emergency-info">
+                            <h3>Emergency Access</h3>
+                            <p>Configure trusted contacts for account recovery</p>
+                        </div>
+                    </div>
+                    <div class="emergency-status">
+                        <div class="status-item">
+                            <span class="status-label">Emergency Mode:</span>
+                            <span class="status-value inactive">Inactive</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Trusted Contacts:</span>
+                            <span class="status-value" id="contactsCount">2</span>
+                        </div>
+                    </div>
+                    <button class="btn-emergency" onclick="setupEmergencyMode()">
+                        ⚡ Setup Emergency Mode
+                    </button>
+                </div>
+
+                <div class="contacts-section">
+                    <div class="section-header">
+                        <h3>👥 Trusted Contacts</h3>
+                        <button class="btn-primary" onclick="addTrustedContact()">
+                            <span>+</span> Add Contact
+                        </button>
+                    </div>
+                    
+                    <div class="contacts-list" id="contactsList">
+                        <div class="contact-card">
+                            <div class="contact-avatar">J</div>
+                            <div class="contact-info">
+                                <h4>John Doe</h4>
+                                <p>Brother • +234 801 234 5678</p>
+                                <div class="contact-trust">Trust Level: <span class="trust-high">High</span></div>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="btn-small" onclick="editContact(this)">✏️</button>
+                                <button class="btn-small danger" onclick="removeContact(this)">🗑️</button>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-avatar">J</div>
+                            <div class="contact-info">
+                                <h4>Jane Smith</h4>
+                                <p>Spouse • jane.smith@email.com</p>
+                                <div class="contact-trust">Trust Level: <span class="trust-high">High</span></div>
+                            </div>
+                            <div class="contact-actions">
+                                <button class="btn-small" onclick="editContact(this)">✏️</button>
+                                <button class="btn-small danger" onclick="removeContact(this)">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recovery-settings">
+                    <h3>🔐 Recovery Settings</h3>
+                    <div class="settings-grid">
+                        <div class="setting-card">
+                            <div class="setting-icon">⏰</div>
+                            <div class="setting-info">
+                                <h4>Recovery Delay</h4>
+                                <p>Time before trusted contacts can access your vault</p>
+                            </div>
+                            <select class="setting-control" id="recoveryDelay">
+                                <option value="24">24 hours</option>
+                                <option value="48" selected>48 hours</option>
+                                <option value="72">72 hours</option>
+                                <option value="168">1 week</option>
+                            </select>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <div class="setting-icon">👮</div>
+                            <div class="setting-info">
+                                <h4>Law Enforcement Access</h4>
+                                <p>Allow verified authorities emergency access</p>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="lawEnforcementAccess" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="setting-card">
+                            <div class="setting-icon">📝</div>
+                            <div class="setting-info">
+                                <h4>Digital Will</h4>
+                                <p>Create instructions for your digital assets</p>
+                            </div>
+                            <button class="btn-small" onclick="createDigitalWill()">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS -->
+    <!-- Add Account Modal -->
+    <div class="modal" id="addAccountModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add OTP Account</h3>
+                <button class="close-modal" onclick="closeModal('addAccountModal')">×</button>
+            </div>
+            <form id="addAccountForm" onsubmit="addNewAccount(event)">
+                <div class="form-group">
+                    <label>Account Name</label>
+                    <input type="text" placeholder="e.g., Google, Facebook, AsratChain" required>
+                </div>
+                <div class="form-group">
+                    <label>Secret Key</label>
+                    <input type="text" placeholder="Enter 32-character secret key" required>
+                    <small>Get this from your service provider's 2FA setup</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('addAccountModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Report Modal -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="reportModalTitle">Report Cybercrime</h3>
+                <button class="close-modal" onclick="closeModal('reportModal')">×</button>
+            </div>
+            <form id="reportForm" onsubmit="submitReport(event)">
+                <div class="form-group">
+                    <label>Incident Type</label>
+                    <input type="text" id="incidentType" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea placeholder="Describe what happened in detail..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>When did this happen?</label>
+                    <input type="datetime-local" required>
+                </div>
+                <div class="form-group">
+                    <label>Evidence (Screenshots, emails, etc.)</label>
+                    <div class="file-upload-area" onclick="triggerEvidenceUpload()">
+                        <div class="upload-icon">📎</div>
+                        <p>Click to upload evidence files</p>
+                        <small>Max 10MB per file</small>
+                    </div>
+                    <input type="file" id="evidenceUpload" multiple style="display: none;" onchange="handleEvidenceUpload(this.files)">
+                </div>
+                <div class="form-group">
+                    <label>Report to Authorities</label>
+                    <div class="authority-checkboxes">
+                        <label><input type="checkbox" checked> Nigeria Police Cyber Unit</label>
+                        <label><input type="checkbox" checked> EFCC Cybercrime Desk</label>
+                        <label><input type="checkbox"> SirriShield CyberOps Team</label>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('reportModal')">Cancel</button>
+                    <button type="submit" class="btn-danger">🚨 Submit Report</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Contact Modal -->
+    <div class="modal" id="addContactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Trusted Contact</h3>
+                <button class="close-modal" onclick="closeModal('addContactModal')">×</button>
+            </div>
+            <form id="addContactForm" onsubmit="saveNewContact(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter contact's full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Relationship</label>
+                    <select required>
+                        <option value="">Select relationship</option>
+                        <option value="spouse">Spouse</option>
+                        <option value="parent">Parent</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="child">Child</option>
+                        <option value="friend">Friend</option>
+                        <option value="lawyer">Lawyer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Contact Method</label>
+                    <div class="contact-methods">
+                        <label><input type="radio" name="contactMethod" value="phone" checked> Phone</label>
+                        <label><input type="radio" name="contactMethod" value="email"> Email</label>
+                    </div>
+                    <input type="text" id="contactValue" placeholder="Phone number or email" required>
+                </div>
+                <div class="form-group">
+                    <label>Trust Level</label>
+                    <select required>
+                        <option value="high">High - Full Access</option>
+                        <option value="medium">Medium - Limited Access</option>
+                        <option value="low">Low - Emergency Only</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal('addContactModal')">Cancel</button>
+                    <button type="submit" class="btn-primary">Add Contact</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="utils.js"></script>
+    <script src="vault.js"></script>
+    <script src="authenticator.js"></script>
+    <script src="cybercrime.js"></script>
+    <script src="threats.js"></script>
+    <script src="legacy.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
